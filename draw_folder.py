@@ -21,12 +21,11 @@ def make_binary_image(image_file):
 
     outputs a  binarized image with points of interest highlighted
     """
-    print(image_file)
+    print('processing: ' + image_file)
+
     #Importing image
     imarray = cv.imread('./T152_Full/' + image_file,0)
 
-    #converting image to numpy array
-    # imarray = np.array(im)
 
     #getting dimensions
     h, w = imarray.shape
@@ -45,6 +44,8 @@ def make_binary_image(image_file):
 
 
     #creating output image
+    print('writing: ' + image_file)
+
     cv.imwrite('./output/'+image_file, thresh1)
 
 
