@@ -24,13 +24,13 @@ You must also provide any step-by-step instructions for installation of your sol
 The following steps are for MacOS systems
 * Step one - install Xcode, OpenCV for C++ and Python3, pkg-config (through homebrew), Python's numpy library (through pip)
 * Step two - 
-<https://www.learnopencv.com/install-opencv-4-on-macos/> -- follow this to install the most recent packages for OpenCV on MacoS
-<https://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/> -- use this to link OpenCV to python3
-<https://medium.com/@jaskaranvirdi/setting-up-opencv-and-c-development-environment-in-xcode-b6027728003> -- running OpenCV on C++
+    1. <https://www.learnopencv.com/install-opencv-4-on-macos/> -- follow this to install the most recent packages for OpenCV on MacoS
+    2. <https://www.pyimagesearch.com/2016/12/19/install-opencv-3-on-macos-with-homebrew-the-easy-way/> -- use this to link OpenCV to python3
+    3. <https://medium.com/@jaskaranvirdi/setting-up-opencv-and-c-development-environment-in-xcode-b6027728003> -- running OpenCV on C++
 * Step three - system administration notes ????
 * Step four - 
-To run the C++ average filter code:
-        g++ $(pkg-config --cflags --libs opencv4) -std=c++11 average.cpp -o average
-        ./average
+    * To run the C++ average filter code:
+        1. g++ $(pkg-config --cflags --libs opencv4) -std=c++11 average.cpp -o average
+        2. ./average
 
 [track_the_stardust]: https://github.com/amnh/HackTheSolarSystem/wiki/Track-The-Stardust
