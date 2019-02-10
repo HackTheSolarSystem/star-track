@@ -15,36 +15,38 @@ Mat& Average(Mat& I, int th);
 
 int main( int argc, char* argv[]) {
 
-  // if (argc < 5) {
-      
-  //   cout << "Not enough parameters" << endl;
-  //   return -1;
-
-  // }
+  if (argc < 3) {
+    cout << "Not enough parameters" << endl;
+    return -1;
+  }
 
   Mat I, O;
 
-  I = imread("output.tif", IMREAD_GRAYSCALE);
+  I = imread("./output/"+string(argv[2]), IMREAD_GRAYSCALE);
   int th = stoi(argv[1]);
 
 
-
-
   if (!I.data) {
-    cout << "The image" << argv[1] << " could not be loaded." << endl;
+    cout << "The image: " << "/output/"+string(argv[2]) << " could not be loaded." << endl;
     return -1;
   }
 
 
   O = Average(I, th);
 
-  imwrite("averageout.tif", O);
+  cout << "writing: " << "/outputavg/"+string(argv[2]) << "\n";
+  
+  imwrite("./outputavg/"+string(argv[2]), O);
 
  
   return 0;
 }
 
-
+/*
+  Iterates over binary image (0 or 255)
+  stops at any 255 pixel and begins search for neighbors
+  if number of neighbors is below a threhsold will set pixel to 0
+*/
 Mat& Average(Mat& I, int th) {
 
   // accept only char type matrices
@@ -59,10 +61,8 @@ Mat& Average(Mat& I, int th) {
 
 
   long i,j;
-  // uchar* p;
   long n,m;
 
-  cout << nRows << "\n";
   int searchRadius = 10;
 
   for( i = 0; i < nRows; ++i) {
@@ -91,10 +91,10 @@ Mat& Average(Mat& I, int th) {
         }
 
       }
-
       
     }
   }
   
   return I;
 }
+
