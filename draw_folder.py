@@ -53,29 +53,38 @@ def outline_shape(csvfile):
     csvfile:
         (str), the target csv file. csv file should have x and y coordinates and
         no header
+
+    takes a collection of points and turns them into a picture with an outline
+
+    returns None
     """
-
+    #importing csvfile
     df = pd.read_table(csvfile, header=None, delimiter=',')
-    lr = LinearRegression()
 
+    #defining the general slope for the object
+    lr = LinearRegression()
     lr.fit(df[0].reshape(-1, 1), df[1].reshape(-1, 1))
 
+    #determining if points are above or below the line
     df[2] = [lr.predict(a) for a in df[0]]
     df[3] = df[1] > df[2]
 
+    #sorting by 1.) above or below line, 2.) x coords
     df = df.sort_values([3, 0])
 
+    #putting coordinates in correct order
     coords = []
-
     for i, r in df[df[3] == False].iterrows():
         coords.append([r[0], r[1]])
 
     for i, r in df[df[3] == True][::-1].iterrows():
         coords.append([r[0], r[1]])
 
+    #prepping points
     ring = LinearRing(coords)
     x, y = ring.xy
 
+    #plotting figure
     fig = plt.figure(1, figsize=(15,15), dpi=90)
     ax = fig.add_subplot(111)
     ax.plot(x, y)
@@ -87,6 +96,7 @@ def outline_shape(csvfile):
     ax.set_aspect(1)
     plt.axis('off')
 
+    #saving image
     nmsplt = csvfile.split('.')
     newname = nmsplt[-2] + '.jpg'
 
