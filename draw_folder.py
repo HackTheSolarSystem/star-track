@@ -98,7 +98,7 @@ def outline_shape(csvfile):
 
     #saving image
     nmsplt = csvfile.split('.')
-    newname = nmsplt[-2] + '.jpg'
+    newname = nmsplt[-2] + '.png'
 
     plt.savefig(newname)
 
