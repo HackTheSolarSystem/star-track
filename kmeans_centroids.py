@@ -5,6 +5,7 @@ from sklearn.cluster import KMeans
 import os
 import csv
 import sys
+import os.path
 
 def cleanup_coords(imarray):
 	pixels_x = []
@@ -37,14 +38,22 @@ def export_csv(centers, output):
 
 path = sys.argv[1]
 for filename in os.listdir(path):
+    csvout = "centroid_csv/" + filename + "-centroids.csv"
+    if os.path.isfile(csvout):
+        continue
+
     im = Image.open(path + '/' + filename)
     imarray = np.array(im)
 
     pixels = cleanup_coords(imarray)	
 
-    kmeans = KMeans(n_clusters=50)
-    kmeans.fit(pixels)
-    y_kmeans = kmeans.predict(pixels)
-    centers = kmeans.cluster_centers_
+    try:
+        kmeans = KMeans(n_clusters=50)
+        kmeans.fit(pixels)
+        y_kmeans = kmeans.predict(pixels)
+        centers = kmeans.cluster_centers_
 
-    export_csv(centers, "centroid_csv/" + filename + "-centroids.csv")
+        export_csv(centers, csvout)
+    except ValueError:
+        continue
+
