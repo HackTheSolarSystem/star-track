@@ -22,21 +22,21 @@ int main( int argc, char* argv[]) {
 
   Mat I, O;
 
-  I = imread("./output/"+string(argv[2]), IMREAD_GRAYSCALE);
+  I = imread("./processedStd/"+string(argv[2]), IMREAD_GRAYSCALE);
   int th = stoi(argv[1]);
 
 
   if (!I.data) {
-    cout << "The image: " << "/output/"+string(argv[2]) << " could not be loaded." << endl;
+    cout << "The image: " << "/processedStd/"+string(argv[2]) << " could not be loaded." << endl;
     return -1;
   }
 
 
   O = Average(I, th);
 
-  cout << "writing: " << "/outputavg/"+string(argv[2]) << "\n";
+  // cout << "writing: " << "/processedAvg/"+string(argv[2]) << "\n";
   
-  imwrite("./outputavg/"+string(argv[2]), O);
+  imwrite("./processedAvg/"+string(argv[2]), O);
 
  
   return 0;
@@ -57,9 +57,6 @@ Mat& Average(Mat& I, int th) {
   int nRows = I.rows;
   int nCols = I.cols;
 
-  int cost = 0;
-
-
   long i,j;
   long n,m;
 
@@ -67,7 +64,6 @@ Mat& Average(Mat& I, int th) {
 
   for( i = 0; i < nRows; ++i) {
     for ( j = 0; j < nCols; ++j) {
-      
 
       int byte = (int)I.at<uchar>(i,j);
 
@@ -79,7 +75,6 @@ Mat& Average(Mat& I, int th) {
           for( m = -searchRadius; m < searchRadius; m++) {
 
             if(i+n > 0 && i+n < nRows && j+m > 0 && j+m < nCols-1000) {
-              
               byte = (int)I.at<uchar>(i+n,j+m);            
               if(byte == 255) count++;
             }
