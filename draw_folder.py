@@ -1,7 +1,8 @@
-from PIL import Image
+# from PIL import Image
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import os
+import cv2 as cv
 
 """
 Copy this file to the folder containing the tifs you want to convert
@@ -11,7 +12,7 @@ run from command line like this: python draw_folder.py
 
 """
 
-tifs = [x for x in os.listdir('./') if '.tif' in x]
+tifs = [x for x in os.listdir('./T152_Full') if '.tif' in x]
 
 def make_binary_image(image_file):
     """
@@ -20,11 +21,12 @@ def make_binary_image(image_file):
 
     outputs a  binarized image with points of interest highlighted
     """
+    print(image_file)
     #Importing image
-    im = Image.open(image_file)
+    imarray = cv.imread('./T152_Full/' + image_file,0)
 
     #converting image to numpy array
-    imarray = np.array(im)
+    # imarray = np.array(im)
 
     #getting dimensions
     h, w = imarray.shape
@@ -38,12 +40,13 @@ def make_binary_image(image_file):
     #binarizing image
     tf = np.where(imarray > mn)
 
+    ret,thresh1 = cv.threshold(imarray,mn,255,cv.THRESH_BINARY)
+
+
+
     #creating output image
-    plt.figure(figsize=(w,h))
-    plt.scatter(tf[1], -tf[0])
-    nmsplit = image_file.split('.')
-    plt.savefig(nmsplit[0] + 'bin.' + nmsplit[1])
-    np.savetxt(nmsplit[0] + '.csv', tf, delimiter=",")
+    cv.imwrite('./output/'+image_file, thresh1)
+
 
 if __name__ == '__main__':
     for t in tifs:
