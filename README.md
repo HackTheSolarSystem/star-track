@@ -37,6 +37,6 @@ The following steps are for MacOS systems
         2. stdBinarization.py
         3. averageFilter.py
         4. fill-image.py
-        5. center_mass.ipynb
+        5. kmeans_centroids.py /path/to/clean/images
 
 [track_the_stardust]: https://github.com/amnh/HackTheSolarSystem/wiki/Track-The-Stardust
